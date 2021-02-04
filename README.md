@@ -50,3 +50,18 @@ A wrapper for SDL_ttf so you can render text faster with fewer lines.
   
   bgrect - optional rect for your background if you want to make it difer from your text's rect (auto your text's rect) (both Rect and Image)
   
+
+# SDL_Tect functions
+  bool init() - function to initialise yor SDL_Text object (Your code will not work if you don't include this) returns true if it worked and false if there was in error
+  
+  bool draw(SDL_Renderer* renderer) - draws your text/background on the SDL renderer
+  
+
+# errors
+  the draw/init function are bool so to check if they worked right you can just run
+                      
+    if (text.init())
+    or
+    if (text.draw(renderer))
+    
+  void TextGetError() - outputs any SDL/SDL_TTF/SDL_text errors in the terminal 
