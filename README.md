@@ -56,12 +56,10 @@ A wrapper for SDL_ttf so you can render text faster with fewer lines.
   
   bool draw(SDL_Renderer* renderer) - draws your text/background on the SDL renderer
   
+  void GetError() - outputs any SDL/SDL_TTF/SDL_text errors in the terminal 
 
-# errors
-  the draw/init function are bool so to check if they worked right you can just run
-                      
-    if (text.init())
+  **Simple Error Handling**
+    if (!text.init()){text.TextGetError}
     or
-    if (text.draw(renderer))
+    if (!text.draw(renderer)){text.TextGetError}
     
-  void TextGetError() - outputs any SDL/SDL_TTF/SDL_text errors in the terminal 
