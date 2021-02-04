@@ -11,7 +11,7 @@ A wrapper for SDL_ttf so you can render text faster with fewer lines.
   run the command "make buildExample"
   
  
-# How to use SDL_Text ( attributes)
+# How to use SDL_Text (attributes)
     First you'll need to create your text with **SDL_Text text {};**
     
     the SDL_Text struct has 8 attributes you need to include
@@ -28,7 +28,5 @@ A wrapper for SDL_ttf so you can render text faster with fewer lines.
     
     a simple example of this is 
 
-    ```
     SDL_Text text3 = {"Text3",50,50,50,300,300,{255,0,0,0},"Roboto-Regular.ttf"};
-    ```
     
