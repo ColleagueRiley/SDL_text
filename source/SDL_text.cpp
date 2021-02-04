@@ -3,6 +3,7 @@
 #include <SDL2/SDL.h>
 
 struct SDL_Text{
+    //nessacerry attributes
     const char* text;
     int size;
     int width;
@@ -11,6 +12,8 @@ struct SDL_Text{
     int y;
     SDL_Color color;
     const char* f;
+    
+    //auto
     SDL_Rect rect = {x,y,width,length};
     SDL_Surface* surfaceText = NULL;
     
@@ -29,6 +32,11 @@ struct SDL_Text{
     //functions
     bool init();
     bool draw(SDL_Renderer* renderer);
+    void TextGetError();
+    
+    //for error handling
+    bool didInit;
+    bool didText;
 };
 
 bool SDL_Text::init(){
@@ -38,11 +46,12 @@ bool SDL_Text::init(){
     surfaceText = TTF_RenderText_Solid(font, text, color);   
     if (!surfaceText){return false;}
     if(bgImage){BMP = SDL_LoadBMP(file);if(!BMP){return false;}}
-    
+    didInit = true;
     return true;
 }
 
 bool SDL_Text::draw(SDL_Renderer* renderer){
+    didText = true;
     if(!bgrect.y+bgrect.x+bgrect.w+bgrect.h){bgrect = rect;}
     SDL_Texture* Text = SDL_CreateTextureFromSurface(renderer, surfaceText);
     if (!Text){return false;}
@@ -53,8 +62,15 @@ bool SDL_Text::draw(SDL_Renderer* renderer){
     return true;
 }
 
-void TextGetError(){
-    std::cout << "SDL2 error: " << std::endl << std::endl << SDL_GetError() << std::endl << "TTF error: " << std::endl << std::endl << std::endl << TTF_GetError() << std::endl;
+void SDL_Text::TextGetError(){
+    if (didText && !didInit){std::cout << "SDL_text error: You need to init your text with .init()" << std::endl;;}
+    else if (!size){std::cout << "SDL_text error: You're missing your .size" << std::endl;}
+    else if (!width || !length){std::cout << "SDL_text error: You're missing your .width or .length" << std::endl;}
+    else if (!f){std::cout << "SDL_text error: You're missing your .f" << std::endl;}
+    
+    else{
+        std::cout << "SDL2 error: " << std::endl << std::endl << SDL_GetError() << std::endl << "TTF error: " << std::endl << std::endl << std::endl << TTF_GetError() << std::endl;
+    }
 }
 
 int main(){
